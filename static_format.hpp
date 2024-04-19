@@ -72,7 +72,7 @@ namespace sf {
     };
 
     template<std::size_t N>
-    constexpr std::ostream& operator<<(std::ostream& os, const static_string<N>& str) {
+    std::ostream& operator<<(std::ostream& os, const static_string<N>& str) {
         return os << str.to_string_view();
     }
 
