@@ -22,9 +22,9 @@
 
 #include <algorithm>
 #include <array>
-#include <string>
+#include <iostream>
 #include <limits>
-
+#include <string>
 
 namespace sf {
     // arithmetic concept (integral || floating_point)
@@ -70,6 +70,11 @@ namespace sf {
         std::array<char, N> str;
         std::size_t length = N;
     };
+
+    template<std::size_t N>
+    constexpr std::ostream& operator<<(std::ostream& os, const static_string<N>& str) {
+        return os << str.to_string_view();
+    }
 
     template<std::size_t N>
     consteval auto new_static_string(char const (&str)[N]) {
