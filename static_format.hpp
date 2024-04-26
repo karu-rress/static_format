@@ -148,7 +148,7 @@ namespace sf {
 
     template<typename T>
     consteval void format_builder(
-        std::string& buf, std::string_view& fmt, T&& value)
+        std::string& buf, std::string_view& fmt, T&& arg)
     {
         constexpr std::size_t N{std::string::npos};
         std::size_t start{}, end{};
@@ -160,13 +160,14 @@ namespace sf {
         if (end = fmt.find('}', start + 1); end == N)
             return;
 
+        buf += std::string{fmt.substr(0, start)}
+
         // If arithmetic, append the converted string
         if constexpr (arithmetic<std::remove_cvref_t<T>>)
-            buf += std::string{fmt.substr(0, start)}
-                + std::string{to_static_string(value)};
+            buf += std::string{to_static_string(arg)};
         // Otherwise, append the string
         else
-            buf += std::string{fmt.substr(0, start)} + std::string{value};
+            buf += std::string{arg};
 
         fmt = fmt.substr(end + 1);
     }
