@@ -13,7 +13,7 @@
 *    g++ -std=c++20 -O2 test1.cpp -o test1
 *                   ^~~ optimization option is optional
 *
-* Last update: 2024/04/18
+* Last update: 2024/04/27
 *
 */
 
@@ -39,11 +39,11 @@ int main() {
 /////// 1. Traditional C++ style stringstream
     start = system_clock::now();
     for (std::size_t i{}; i < loops; i++) {
-        ostringstream oss;
+        stringstream ss;
 
-        oss << "Student #" << no1 << " : " << name1 << ", height = " << height1 << "cm" << endl;
-        oss << "Student #" << no2 << " : " << name2 << ", height = " << height2 << "cm" << endl;
-        oss.str();
+        ss << "Student #" << no1 << " : " << name1 << ", height = " << height1 << "cm" << endl;
+        ss << "Student #" << no2 << " : " << name2 << ", height = " << height2 << "cm" << endl;
+        ss.str();
     }
     end = system_clock::now();
     cout << "[stringstream] Time elapsed: "
