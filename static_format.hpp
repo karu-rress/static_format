@@ -125,7 +125,7 @@ namespace sf {
             if (n_frac -= static_cast<int>(n_frac); n_frac < 0.000001)
                 break;
         }
-        buf += std::string{ "." };
+        buf += std::string{"."};
         buf += ret;
 
         return {buf, buf.length()};
@@ -147,9 +147,7 @@ namespace sf {
     }
 
     template<typename T>
-    consteval void format_builder(
-        std::string& buf, std::string_view& fmt, T&& arg)
-    {
+    consteval void format_builder(std::string& buf, std::string_view& fmt, T&& arg) {
         constexpr std::size_t N{std::string::npos};
         std::size_t start{}, end{};
 
@@ -160,7 +158,7 @@ namespace sf {
         if (end = fmt.find('}', start + 1); end == N)
             return;
 
-        buf += std::string{fmt.substr(0, start)}
+        buf += std::string{fmt.substr(0, start)};
 
         // If arithmetic, append the converted string
         if constexpr (arithmetic<std::remove_cvref_t<T>>)
@@ -173,10 +171,10 @@ namespace sf {
     }
 
     template<typename... Args>
-    [[nodiscard]] consteval static_string<max_len> static_format(
-        std::string_view fmt, Args&&... args)
-    {
-        // buf should be destructed until return (constant expression of dynamic stroage)
+    [[nodiscard("Formatted string shouldn't be discarded.")]]
+    consteval auto static_format(std::string_view fmt, Args&&... args) -> static_string<max_len> {
+        // buf should be destructed before returned
+        // (constant expression of dynamic stroage)
         std::string buf;
 
         // C++17 Fold expression
