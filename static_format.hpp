@@ -13,7 +13,7 @@
 *    sf::static_format("{}, format!", "Hello")
 *
 *
-* Last update: 2024/04/27
+* Last update: 2026/01/08
 *
 */
 
@@ -37,7 +37,7 @@ namespace sf {
     class static_string {
     public:
         consteval static_string() : str{} {  }
-        consteval static_string(const std::string_view& s): static_string(s, N) {  }
+        consteval static_string(const std::string_view& s): static_string{s, N} {  }
         consteval static_string(const std::string_view& s, std::size_t size): length{size} {
             std::ranges::copy(s, std::begin(str));
         }
